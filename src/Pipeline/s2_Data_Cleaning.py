@@ -2,10 +2,6 @@ import pandas as pd
 import os
 
 class DataCleaningClass:
-    def __init__(self):
-        """Initializes the DataCleaningClass without any arguments."""
-        pass
-
     def read_csv(self, file_path: str) -> pd.DataFrame:
         """Reads a CSV file and returns a DataFrame."""
         df = pd.read_csv(file_path)
