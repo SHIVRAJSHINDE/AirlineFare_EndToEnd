@@ -1,11 +1,27 @@
 import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler, MinMaxScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import make_pipeline
+from src.Utils.Utils import load_yaml,get_class,get_class_Scaler
+
 
 class EncodingAndScalingClass:
+    def __init__(self):
+        self.load_yaml = load_yaml
+        self.get_class = get_class
+        self.data = self.load_yaml(yaml_path="constants.yaml")
+        
+        # TrainTest Split
+        self.testSize = self.data['trainTestSplit']['testSize']
+        self.randomState = self.data['trainTestSplit']['randomState']
+
+        # MinMax and Standard Scalaer Variable
+        self.scaling = self.data['scaling']['scalingFeature']
+        self.scalling = get_class_Scaler(self.scaling)
+
+
     def read_file(self, file_path):
         df = pd.read_csv(file_path)
         df.drop(columns=['Unnamed: 0'], errors='ignore', inplace=True)
@@ -17,7 +33,7 @@ class EncodingAndScalingClass:
         return X, y
 
     def train_test_split(self, X, y):
-        return train_test_split(X, y, test_size=0.2, random_state=42)
+        return train_test_split(X, y, test_size=self.testSize, random_state=self.randomState)
 
     def encoding_and_scaling(self):
         trf1 = ColumnTransformer([
@@ -29,7 +45,7 @@ class EncodingAndScalingClass:
         ], remainder='passthrough')
 
         trf3 = ColumnTransformer([
-            ('scale', StandardScaler(), slice(25))  # Scale first 25 columns
+            ('scale', self.scalling, slice(25))  # Scale first 25 columns
         ])
         
         return make_pipeline(trf1, trf2, trf3)

@@ -7,7 +7,7 @@ from sklearn.model_selection import RandomizedSearchCV
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 from sklearn.linear_model import Ridge, Lasso, ElasticNet
-
+from src.Utils.Utils import load_yaml
 
 
 class ModelTrainerClass:
@@ -17,6 +17,12 @@ class ModelTrainerClass:
         self.X_train_path = X_train_path
         self.y_train_path = y_train_path
         self.params_path = params_path
+
+        # Load Yaml File
+        self.load_yaml = load_yaml
+        self.data = self.load_yaml(yaml_path="constants.yaml")
+        self.CrossValidation = self.data['trainTestSplit']['CrossValidation']
+
 
     def load_X_train(self):
         """Load X_train from the provided file path."""
@@ -46,7 +52,7 @@ class ModelTrainerClass:
 
     def train_model(self, model, param_grid):
         """Train the model using RandomizedSearchCV."""
-        random_search = RandomizedSearchCV(estimator=model, param_distributions=param_grid, cv=5)
+        random_search = RandomizedSearchCV(estimator=model, param_distributions=param_grid, cv=self.CrossValidation)
         random_search.fit(self.X_train, self.y_train)
 
         best_model = random_search.best_estimator_
