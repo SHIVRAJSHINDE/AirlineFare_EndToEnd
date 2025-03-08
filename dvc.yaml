@@ -1,10 +1,12 @@
 stages:
+  
   DataIngestion:
     cmd: python src\Pipeline\s1_dataIngestion.py
     deps:
     - src\Pipeline\s1_dataIngestion.py
     outs:
     - Data\01_RawData\Airline.csv
+  
   DataCleaning:
     cmd: python src\Pipeline\s2_Data_Cleaning.py
     deps:
@@ -12,6 +14,7 @@ stages:
     - src\Pipeline\s2_Data_Cleaning.py
     outs:
     - Data\02_CleanedData\CleanedData.csv
+  
   RemoveOutliers:
     cmd: python src\Pipeline\s3_RemoveOutliers.py
     deps:
@@ -32,6 +35,7 @@ stages:
     - Data\04_encoded_Data\X_train.csv
     - Data\04_encoded_Data\y_test.csv
     - Data\04_encoded_Data\y_train.csv
+  
   Model_Training:
     cmd: python src\Pipeline\s5_Model_Training.py
     deps:
@@ -41,3 +45,11 @@ stages:
     - Data\04_encoded_Data\y_train.csv
     - modelsParams.yaml
     - constants.yaml
+    outs:
+    - reports/experiment_info.json
+
+  Register_Model:
+    cmd: python src\Pipeline\s6_register_model.py
+    deps:
+    - reports\experiment_info.json
+    - src\Pipeline\s6_register_model.py
