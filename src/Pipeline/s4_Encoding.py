@@ -5,7 +5,7 @@ from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler,
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import make_pipeline
 from src.Utils.Utils import load_yaml,get_class,get_class_Scaler
-
+import pickle
 
 class EncodingAndScalingClass:
     def __init__(self):
@@ -56,6 +56,12 @@ class EncodingAndScalingClass:
     def transform_X_test(self, pipe, X_test):
         return pd.DataFrame(pipe.transform(X_test))
     
+    def makeTransformerFile(self, pipe):
+        with open('model/model_transform.pkl', 'wb') as file:
+            pickle.dump(pipe, file)
+
+
+
     def save_dataframe(self, df, file_path):
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
         df.to_csv(file_path, index=False)
@@ -71,6 +77,9 @@ if __name__ == "__main__":
     X_train_transformed = obj.transform_X_train(pipe, X_train)
     X_test_transformed = obj.transform_X_test(pipe, X_test)
     
+    obj.makeTransformerFile(pipe)
+
+
     obj.save_dataframe(X_train_transformed, "Data/04_encoded_Data/X_train.csv")
     obj.save_dataframe(X_test_transformed, "Data/04_encoded_Data/X_test.csv")
     obj.save_dataframe(y_train, "Data/04_encoded_Data/y_train.csv")
