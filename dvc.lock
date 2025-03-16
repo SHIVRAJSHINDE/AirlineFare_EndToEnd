@@ -21,8 +21,8 @@ stages:
       size: 1089598
     - path: src\Pipeline\s2_Data_Cleaning.py
       hash: md5
-      md5: e907592a52a5a065d06b30990c5dcfed
-      size: 5539
+      md5: 8d7463cf6af9ea1685df68e8d97e1698
+      size: 7194
     outs:
     - path: Data\02_CleanedData\CleanedData.csv
       hash: md5
@@ -37,7 +37,7 @@ stages:
       size: 688161
     - path: constants.yaml
       hash: md5
-      md5: ba9f1ff39833dbe891d90f3139436b41
+      md5: 487c2f98bb5d17c890ebd279304aa028
       size: 469
     - path: src\Pipeline\s3_RemoveOutliers.py
       hash: md5
@@ -46,80 +46,91 @@ stages:
     outs:
     - path: Data\03_noOutlierData\noOutlierDataFile.csv
       hash: md5
-      md5: 1a6e5e9e0f69ab6bc58e743ce0e26254
-      size: 646439
+      md5: 82c381d5fbdafec2626a00ed8902f520
+      size: 647939
   Encoder_N_Scaler:
     cmd: python src\Pipeline\s4_Encoding.py
     deps:
     - path: Data\03_noOutlierData\noOutlierDataFile.csv
       hash: md5
-      md5: 1a6e5e9e0f69ab6bc58e743ce0e26254
-      size: 646439
+      md5: 82c381d5fbdafec2626a00ed8902f520
+      size: 647939
     - path: constants.yaml
       hash: md5
-      md5: ba9f1ff39833dbe891d90f3139436b41
+      md5: 487c2f98bb5d17c890ebd279304aa028
       size: 469
     - path: src\Pipeline\s4_Encoding.py
       hash: md5
-      md5: 0329c3c50d15c4e1d1447145f7c40ede
+      md5: d95542ab3a708bb7c93261c4261c8c9a
       size: 3200
     outs:
     - path: Data\04_encoded_Data\X_test.csv
       hash: md5
-      md5: 6b655c61aecb2555ad251da0b8122f9a
-      size: 568220
+      md5: 36fbaa638123a13ee41ee2ea322fecd5
+      size: 586257
     - path: Data\04_encoded_Data\X_train.csv
       hash: md5
-      md5: 92f4d73840221d64070351db8472d012
-      size: 1322425
+      md5: 467e3119fb6132272a60af11b2ed876e
+      size: 1365275
     - path: Data\04_encoded_Data\y_test.csv
       hash: md5
-      md5: 036d8953ebc9c7f236128325e64ea9c1
-      size: 19253
+      md5: 9263126412b8254115a2da4109140026
+      size: 19354
     - path: Data\04_encoded_Data\y_train.csv
       hash: md5
-      md5: 8fe4dcd5659843a5912ee1dd38223cb9
-      size: 44979
+      md5: 4a073a290d4092a9d27c870d69bedbf8
+      size: 45052
   Model_Training:
     cmd: python src\Pipeline\s5_Model_Training.py
     deps:
     - path: Data\04_encoded_Data\X_test.csv
       hash: md5
-      md5: 6b655c61aecb2555ad251da0b8122f9a
-      size: 568220
+      md5: 36fbaa638123a13ee41ee2ea322fecd5
+      size: 586257
     - path: Data\04_encoded_Data\X_train.csv
       hash: md5
-      md5: 92f4d73840221d64070351db8472d012
-      size: 1322425
+      md5: 467e3119fb6132272a60af11b2ed876e
+      size: 1365275
     - path: Data\04_encoded_Data\y_train.csv
       hash: md5
-      md5: 8fe4dcd5659843a5912ee1dd38223cb9
-      size: 44979
+      md5: 4a073a290d4092a9d27c870d69bedbf8
+      size: 45052
     - path: constants.yaml
       hash: md5
-      md5: ba9f1ff39833dbe891d90f3139436b41
+      md5: 487c2f98bb5d17c890ebd279304aa028
       size: 469
     - path: modelsParams.yaml
       hash: md5
-      md5: 7fef5e90e529c5bdb587faa02872e727
-      size: 369
+      md5: f4aaa9e7dfea38711b03fa68e3be8a1a
+      size: 379
     - path: src\Pipeline\s5_Model_Training.py
       hash: md5
-      md5: 453a4e164409f3234eb852428fa5330b
-      size: 6265
+      md5: 2119ed0faf9d3ec2bb4efdaa87db0c4a
+      size: 6453
     outs:
     - path: reports/experiment_info.json
       hash: md5
-      md5: 864d822a780fcb377e5e0588eecf604f
+      md5: 70af683fec2afc999f0728e946c620f4
       size: 82
   Register_Model:
     cmd: python src\Pipeline\s6_register_model.py
     deps:
     - path: reports\experiment_info.json
       hash: md5
-      md5: 864d822a780fcb377e5e0588eecf604f
+      md5: 70af683fec2afc999f0728e946c620f4
       size: 82
     - path: src\Pipeline\s6_register_model.py
       hash: md5
-      md5: a121b1a761bfb53d48db69b0bce43fc9
-      size: 1853
+      md5: a9e0ea3ddf9729093ba4f523b9d0645d
+      size: 2924
+  stage_Transition_Model:
+    cmd: python src\Pipeline\s7_stage_Transition.py
+    deps:
+    - path: reports\experiment_info.json
+      hash: md5
+      md5: 70af683fec2afc999f0728e946c620f4
+      size: 82
+    - path: src\Pipeline\s7_stage_Transition.py
+      hash: md5
+      md5: 52fb0e0c68f5a61a43679722c67366bd
+      size: 2479

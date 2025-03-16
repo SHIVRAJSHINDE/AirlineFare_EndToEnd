@@ -1,14 +1,24 @@
 import os
 import json
-import mlflow
 
-class ModelManager:
+import mlflow
+import time
+import dagshub
+from mlflow.tracking import MlflowClient
+
+
+class ModelManagerRegister:
     """Class to manage model saving, loading, and registration with MLflow."""
 
     def __init__(self, model_name: str, info_path: str):
         self.model_name = model_name
         self.info_path = info_path
-        self.client = mlflow.tracking.MlflowClient()
+        #self.client = mlflow.tracking.MlflowClient()
+        self.client = MlflowClient()
+        mlflow.set_tracking_uri("https://dagshub.com/SHIVRAJSHINDE/AirlineFare_EndToEnd.mlflow")
+        dagshub.init(repo_owner='SHIVRAJSHINDE', repo_name='AirlineFare_EndToEnd', mlflow=True)
+        # self.tracking_uri = "http://localhost:5000"
+        # mlflow.set_tracking_uri(self.tracking_uri)
 
     def save_model_info(self, run_id: str, model_path: str) -> None:
         """Save the model run ID and path to a JSON file."""
@@ -29,23 +39,44 @@ class ModelManager:
     def register_model(self):
         """Register the model with the MLflow Model Registry."""
         model_info = self.load_model_info()
+        print("----------------------------------------------------------------")
+        print(model_info)
+        print("----------------------------------------------------------------")
         model_uri = f"runs:/{model_info['run_id']}/{model_info['model_path']}"
+        # model= "Lasso"    
 
+        # model_uri = f"runs:/{model_info['run_id']}/{model}"
+
+        print("----------------------------------------------------------------")
+        print(model_uri)
+        print("----------------------------------------------------------------")
         # Register the model
         model_version = mlflow.register_model(model_uri, self.model_name)
-
+        print("----------------------------------------------------------------")
+        print(model_version)
+        print("----------------------------------------------------------------")
+        print("model_name,model_version.version")
+        print(self.model_name,model_version.version)
         # Transition the model to "Staging" stage
-        self.client.transition_model_version_stage(
-            name=self.model_name,
-            version=model_version.version,
-            stage="Staging"
-        )
+        
 
 if __name__ == '__main__':
-    model_name="my_model" 
+    model_name="Lasso"
     info_path='reports/experiment_info.json'
 
-    model_manager = ModelManager(model_name, info_path)
+    model_manager = ModelManagerRegister(model_name, info_path)
     
     # Load model info and register
     model_manager.register_model()
+
+
+
+
+
+
+
+
+
+
+
+

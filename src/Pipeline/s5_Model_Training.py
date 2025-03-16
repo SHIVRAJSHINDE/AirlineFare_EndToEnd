@@ -8,6 +8,11 @@ from sklearn.linear_model import Ridge, Lasso, ElasticNet
 import json
 import os
 
+import mlflow
+import dagshub
+
+
+
 class ModelTrainerClass:
 
     def __init__(self, X_train_path, y_train_path, params_path):
@@ -50,10 +55,7 @@ class ModelTrainerClass:
         best_model = random_search.best_estimator_
         best_params = random_search.best_params_
 
-        #Train the Model
         best_model.fit(self.X_train, self.y_train)
-
-        # Get predicted_y
         predicted_y = best_model.predict(self.X_train)
 
         return best_model, best_params, predicted_y
@@ -82,11 +84,14 @@ class ModelTrainerClass:
 
 class MLflowLoggerClass:
 
-    def __init__(self, tracking_uri):
+    def __init__(self):
         """Initialize MLflowLogger with the tracking URI."""
-        self.tracking_uri = tracking_uri
-        mlflow.set_tracking_uri(self.tracking_uri)
-        
+
+        mlflow.set_tracking_uri("https://dagshub.com/SHIVRAJSHINDE/AirlineFare_EndToEnd.mlflow")
+        dagshub.init(repo_owner='SHIVRAJSHINDE', repo_name='AirlineFare_EndToEnd', mlflow=True)
+
+        # self.tracking_uri = "http://localhost:5000"
+        # mlflow.set_tracking_uri(self.tracking_uri)
 
     def save_model_info(self, run_id: str, model_path: str, file_path: str) -> None:
         """Save the model run ID and path to a JSON file, ensuring the directory exists."""
@@ -112,7 +117,9 @@ class MLflowLoggerClass:
                 mlflow.log_param(f"Best {param_name}", param_value)
 
             # Log the model
-            mlflow.sklearn.log_model(best_model, f"{model_name}_model")
+            #mlflow.sklearn.log_model(best_model, f"{model_name}_model")
+            mlflow.sklearn.log_model(best_model, f"{model_name}")
+
             print("----------------------------------------------------------------")
             print(run.info.run_id)
             print("----------------------------------------------------------------")
@@ -132,9 +139,10 @@ if __name__ == "__main__":
 
     X_train_path = "Data\\04_encoded_Data\\X_train.csv"
     y_train_path = "Data\\04_encoded_Data\\y_train.csv"
-
     params_path = "modelsParams.yaml"
-    tracking_uri = "http://localhost:5000"
+
+
+
 
     # Initialize the ModelTrainerObj
     ModelTrainerObj = ModelTrainerClass(X_train_path, y_train_path, params_path)
@@ -143,7 +151,6 @@ if __name__ == "__main__":
     X_train = ModelTrainerObj.load_X_train()
     y_train = ModelTrainerObj.load_y_train()
     modelWithParams = ModelTrainerObj.load_params()
-
     print("----------------------------------------------------")
     #print(modelParams['model'])
     for value in modelWithParams.values():
@@ -165,5 +172,5 @@ if __name__ == "__main__":
         print(f"Model Name: {model_name}")
 
         # Initialize MLflowLogger and log results
-        MLflowLoggerObj = MLflowLoggerClass(tracking_uri)  # Replace with your URI
+        MLflowLoggerObj = MLflowLoggerClass()  # Replace with your URI
         MLflowLoggerObj.log_results(model_name, best_model, best_params, mse, mae, rmse, r2, aR2)

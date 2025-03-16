@@ -1,10 +1,44 @@
+import mlflow
+import mlflow.pyfunc
+import json
+
 from flask import Flask, request, render_template
 from flask_cors import cross_origin
+import os
 
 from src.Prediction.predictionFile import ReceiveData
+import dagshub
 
 app = Flask(__name__)
 
+mlflow.set_tracking_uri("https://dagshub.com/SHIVRAJSHINDE/AirlineFare_EndToEnd.mlflow")
+dagshub.init(repo_owner='SHIVRAJSHINDE', repo_name='AirlineFare_EndToEnd', mlflow=True)
+
+
+# tracking_uri = "http://localhost:5000"
+# mlflow.set_tracking_uri(tracking_uri)
+
+def load_model_info() -> dict:
+    """Load the model info from a JSON file."""
+    if not os.path.exists('reports/experiment_info.json'):
+        raise FileNotFoundError(f"Model info file not found: {'reports/experiment_info.json'}")
+
+    with open('reports/experiment_info.json', 'r') as file:
+        return json.load(file)
+
+ModelName = "Lasso"
+model_info = load_model_info()
+model_uri = f"runs:/{model_info['run_id']}/{ModelName}"
+
+# model_uri = 'runs:/b86d75382ed74105b6546b9c899fdc44/Lasso_model'
+
+try:
+    # Load model as a PyFuncModel.
+    model = mlflow.pyfunc.load_model(model_uri)
+
+    print(model)
+except Exception as e:
+    print("Error loading model:", e)
 
 @app.route("/")
 @cross_origin()
@@ -32,9 +66,15 @@ def predict():
                                         Arrival_Time = request.form.get('Arrival_Time'),
                                         Duration = request.form.get('Duration'),
                                         Total_Stops = request.form.get('Total_Stops'))
-        
+        print(df)
+
         value = receiveData_Obj.execute_pipeline(df)
-    
+        prediction_value = model.predict(value)
+        print("----------------------------------------------------")
+        print(prediction_value)
+        print("----------------------------------------------------")
+        return render_template("prediction.html", prediction=prediction_value)
+
     return render_template("home.html")
 
 

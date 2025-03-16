@@ -41,7 +41,7 @@ class EncodingAndScalingClass:
         ], remainder='passthrough')
 
         trf2 = ColumnTransformer([
-            ('Ordinal', OrdinalEncoder(categories=[['non-stop', '1 stop', '2 stops', '3 stops', '4 stops']]), [16])
+            ('Ordinal', OrdinalEncoder(categories=[['non-stop', '1 stop', '2 stops', '3 stops', '4 stops']]), [15])
         ], remainder='passthrough')
 
         trf3 = ColumnTransformer([
