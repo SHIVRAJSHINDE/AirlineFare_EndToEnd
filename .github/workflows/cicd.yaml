@@ -1,8 +1,11 @@
 name: CI Pipeline
+
 on: push
+
 jobs:
-  name: CI Pipeline test
+  CI Pipeline test:
   runs-on: ubuntu-latest
+
   steps:
     - name: Checkout Code
       uses: actions/checkout@v3
