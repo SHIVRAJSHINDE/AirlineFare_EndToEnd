@@ -1,14 +1,14 @@
 schema: '2.0'
 stages:
   DataIngestion:
-    cmd: python src\Pipeline\s1_dataIngestion.py
+    cmd: python src/Pipeline/s1_dataIngestion.py
     deps:
-    - path: src\Pipeline\s1_dataIngestion.py
+    - path: src/Pipeline/s1_dataIngestion.py
       hash: md5
-      md5: a2f100f26f09e944e41521480de8ab1d
-      size: 1283
+      md5: 5895425d8ecb382a3d3a3b0bb18cabcb
+      size: 1276
     outs:
-    - path: Data\01_RawData\Airline.csv
+    - path: Data/01_RawData/Airline.csv
       hash: md5
       md5: e968031f6686a71a8ce6e4ce64b3c34e
       size: 1089598
