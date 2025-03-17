@@ -1,6 +1,6 @@
 name: CI Pipeline
 on: push
-josbs:
+jobs:
   name: CI Pipeline test
   runs-on: ubuntu-latest
   steps:
