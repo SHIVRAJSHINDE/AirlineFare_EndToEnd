@@ -4,7 +4,7 @@ import pandas as pd
 class DataIngestionClass:
     def read_csv(source_path):
         # Read the CSV file and return the DataFrame
-        df = pd.read_csv(source_path)
+        df = pd.read_csv(source_path,encoding='utf-8')
         print(df)
         return df
 
