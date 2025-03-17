@@ -4,7 +4,7 @@ from pathlib import Path
 
 class DataIngestionClass:
     def read_csv(source_path):
-        source_path = r"D:\DataSets\01_AirlineData\Airline.csv"  # Raw string
+        source_path = r"D:/DataSets/01_AirlineData/Airline.csv"  # Raw string
 
         # Read the CSV file and return the DataFrame
         try:
