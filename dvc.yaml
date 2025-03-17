@@ -1,11 +1,11 @@
 stages:
   
   DataIngestion:
-    cmd: python src\Pipeline\s1_dataIngestion.py
+    cmd: python src/Pipeline/s1_dataIngestion.py
     deps:
-    - src\Pipeline\s1_dataIngestion.py
+    - src/Pipeline/s1_dataIngestion.py
     outs:
-    - Data\01_RawData\Airline.csv
+    - Data/01_RawData/Airline.csv
   
   DataCleaning:
     cmd: python src\Pipeline\s2_Data_Cleaning.py
