@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/488adf5d950243e2a473550ea5620527/artifacts
+end_time: 1741411290140
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 488adf5d950243e2a473550ea5620527
+run_name: ElasticNet
+run_uuid: 488adf5d950243e2a473550ea5620527
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1741411286425
+status: 3
+tags: []
+user_id: SHIVRAJ SHINDE
