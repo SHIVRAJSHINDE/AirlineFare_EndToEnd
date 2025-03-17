@@ -1,12 +1,17 @@
 import os
 import pandas as pd
+from pathlib import Path
 
 class DataIngestionClass:
     def read_csv(source_path):
         # Read the CSV file and return the DataFrame
-        df = pd.read_csv(source_path)
-        print(df)
-        return df
+        try:
+            df = pd.read_csv(source_path)
+            print(df)
+            return df
+        except FileNotFoundError as e:
+            print(f"Error: {e}")
+            return None
 
     def save_file(df, directory, filename):
         # Check if the directory exists, create it if it doesn't
@@ -25,7 +30,9 @@ class DataIngestionClass:
 
 # This block will only execute if this script is run directly
 if __name__ == "__main__":
-    source_path = 'C:/Users/SHIVRAJ SHINDE/JupiterWorking/XL_ML/Z_DataSets/01_AirlineData/Airline.csv'
+    # source_path = "C:/Users/SHIVRAJ SHINDE/JupiterWorking/XL_ML/Z_DataSets/01_AirlineData/Airline.csv"
+    source_path = Path('C:/Users/SHIVRAJ SHINDE/JupiterWorking/XL_ML/Z_DataSets/01_AirlineData') / 'Airline.csv'  # Use Pathlib to build the path
+
     directory = "Data/01_RawData/"
     filename = "Airline.csv"
 
