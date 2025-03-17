@@ -8,7 +8,7 @@ class DataIngestionClass:
 
         # Read the CSV file and return the DataFrame
         try:
-            df = pd.read_csv(r"D:\\DataSets\\01_AirlineData\\Airline.csv")
+            df = pd.read_csv(source_path)
             print(df)
             return df
         except FileNotFoundError as e:
