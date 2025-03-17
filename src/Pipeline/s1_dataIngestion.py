@@ -4,9 +4,11 @@ from pathlib import Path
 
 class DataIngestionClass:
     def read_csv(source_path):
+        source_path =   # Raw string
+
         # Read the CSV file and return the DataFrame
         try:
-            df = pd.read_csv(source_path)
+            df = pd.read_csv(r"D:\DataSets\01_AirlineData\Airline.csv")
             print(df)
             return df
         except FileNotFoundError as e:
