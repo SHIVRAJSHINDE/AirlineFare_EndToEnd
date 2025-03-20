@@ -14,15 +14,17 @@ class DataCleaningClass:
         except Exception as e:
             print(CustomException(e,sys))'''
 
-    def read_csv_as_dataframe(folder: str, file: str) -> pd.DataFrame:
+    def read_csv_as_dataframe(self,folder: str, file: str) -> pd.DataFrame:
 
         # Combine the folder and file path into a full path
         full_path = os.path.join(folder, file)
-        
+        print(full_path)
         # Read the CSV file into a DataFrame
         try:
             df = pd.read_csv(full_path)
+            print(df)
             return df
+        
         except FileNotFoundError:
             print(f"File not found: {full_path}")
             return None

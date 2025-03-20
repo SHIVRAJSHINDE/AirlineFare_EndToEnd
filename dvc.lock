@@ -11,18 +11,16 @@ stages:
       md5: 891afd8932c19ef4d8723b53ff7784dc
       size: 1089598
   DataCleaning:
-    cmd: python src\Pipeline\s2_Data_Cleaning.py
+    cmd: python src/Pipeline/s2_Data_Cleaning.py
     deps:
-    - path: Data\01_RawData\Airline.csv
-      md5: 891afd8932c19ef4d8723b53ff7784dc
+    - path: Data/01_RawData/Airline.csv
+      hash: md5
+      md5: e968031f6686a71a8ce6e4ce64b3c34e
       size: 1089598
-    - path: src\Pipeline\s2_Data_Cleaning.py
-      md5: 3aeb34fe8e9abb669f34c7fc2e44cbc1
-      size: 7194
-    outs:
-    - path: Data\02_CleanedData\CleanedData.csv
-      md5: 9a4db24a3bb00ea65fbf9f702a55b6c5
-      size: 688161
+    - path: src/Pipeline/s2_Data_Cleaning.py
+      hash: md5
+      md5: 1e0ea1b4297eda523da20a47cfd0d4ae
+      size: 7996
   RemoveOutliers:
     cmd: python src\Pipeline\s3_RemoveOutliers.py
     deps:
