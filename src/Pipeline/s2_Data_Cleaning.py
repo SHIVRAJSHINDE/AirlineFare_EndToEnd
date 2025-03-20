@@ -153,7 +153,7 @@ class DataCleaningClass:
 
 # Example usage:
 if __name__ == "__main__":
-    raw_file_path = "D:/Training/03 Projects/03) ML Projects\Practice/AirlineFare_EndToEnd/Data/01_RawData/Airline.csv"
+    raw_file_path = "D:/Training/03 Projects/03) ML Projects/Practice/AirlineFare_EndToEnd/Data/01_RawData/Airline.csv"
     directory = "Data/02_CleanedData/"
     filename = "CleanedData.csv"
 
