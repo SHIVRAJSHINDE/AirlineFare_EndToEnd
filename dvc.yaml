@@ -8,12 +8,12 @@ stages:
 #    - Data/01_RawData/Airline.csv
   
   DataCleaning:
-    cmd: python src\Pipeline\s2_Data_Cleaning.py
+    cmd: python src/Pipeline/s2_Data_Cleaning.py
     deps:
-    - Data\01_RawData\Airline.csv
-    - src\Pipeline\s2_Data_Cleaning.py
+    - Data/01_RawData/Airline.csv
+    - src/Pipeline/s2_Data_Cleaning.py
     outs:
-    - Data\02_CleanedData\CleanedData.csv
+    - Data/02_CleanedData/CleanedData.csv
   
   RemoveOutliers:
     cmd: python src\Pipeline\s3_RemoveOutliers.py
