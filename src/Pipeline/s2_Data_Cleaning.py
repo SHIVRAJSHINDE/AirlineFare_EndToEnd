@@ -5,10 +5,11 @@ from src.Utils.exception import CustomException
 
 
 class DataCleaningClass:
-    def read_csv(self, file_path: str) -> pd.DataFrame:
+    def read_csv(self, raw_file_path: str) -> pd.DataFrame:
         try:
+            print(raw_file_path)
             """Reads a CSV file and returns a DataFrame."""
-            df = pd.read_csv(file_path)
+            df = pd.read_csv(raw_file_path)
             return df
         except Exception as e:
             print(CustomException(e,sys))
