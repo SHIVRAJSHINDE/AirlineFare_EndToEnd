@@ -33,8 +33,8 @@ class DataIngestionClass:
 # This block will only execute if this script is run directly
 if __name__ == "__main__":
     # source_path = "C:/Users/SHIVRAJ SHINDE/JupiterWorking/XL_ML/Z_DataSets/01_AirlineData/Airline.csv"
-    source_path = "D:\\DataSets\\01_AirlineData\\Airline.csv"  # Use Pathlib to build the path
-    df = pd.read_csv(r"D:/DataSets/01_AirlineData/Airline.csv")
+    # source_path = "D:\\DataSets\\01_AirlineData\\Airline.csv"  # Use Pathlib to build the path
+    df = pd.read_csv(r"D:\DataSets\01_AirlineData\Airline.csv")
     print(df)
 
     # directory = "Data/01_RawData/"
