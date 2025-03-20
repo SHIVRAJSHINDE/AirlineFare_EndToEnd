@@ -152,8 +152,8 @@ class DataCleaningClass:
 
 # Example usage:
 if __name__ == "__main__":
-    raw_file_path = "Data\\01_RawData\\Airline.csv"
-    directory = "Data\\02_CleanedData\\"
+    raw_file_path = "Data/01_RawData/Airline.csv"
+    directory = "Data/02_CleanedData/"
     filename = "CleanedData.csv"
 
     # Create an instance of DataCleaningClass
