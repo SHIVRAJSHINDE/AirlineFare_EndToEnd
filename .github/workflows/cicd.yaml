@@ -19,6 +19,9 @@ jobs:
         run: | 
           pip install -r requirements.txt
 
+      - name: Pull data from DVC remote
+        run: dvc pull Data/01_RawData/Airline.csv
+
       - name: run DVC Pipeline
         run: | 
           dvc repro
