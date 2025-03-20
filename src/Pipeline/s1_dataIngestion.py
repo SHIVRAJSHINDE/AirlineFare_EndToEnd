@@ -7,13 +7,9 @@ class DataIngestionClass:
         source_path = r"D:/DataSets/01_AirlineData/Airline.csv"  # Raw string
 
         # Read the CSV file and return the DataFrame
-        try:
-            df = pd.read_csv(source_path)
-            print(df)
-            return df
-        except FileNotFoundError as e:
-            print(f"Error: {e}")
-            return None
+        df = pd.read_csv(source_path)
+        print(df)
+        return df
 
     def save_file(df, directory, filename):
         # Check if the directory exists, create it if it doesn't
