@@ -14,10 +14,11 @@ class DataCleaningClass:
         except Exception as e:
             print(CustomException(e,sys))'''
 
-    def read_csv_as_dataframe(self,folder: str, file: str) -> pd.DataFrame:
+    def read_csv_as_dataframe(self,folder: str) -> pd.DataFrame:
 
         # Combine the folder and file path into a full path
-        full_path = os.path.join(folder, file)
+        # full_path = os.path.join(folder, file)
+        full_path = folder
         print(full_path)
         # Read the CSV file into a DataFrame
         try:
@@ -175,12 +176,12 @@ if __name__ == "__main__":
     '''raw_file_path = "Data/01_RawData/Airline.csv"
     directory = "Data/02_CleanedData/"
     filename = "CleanedData.csv"'''
-    folder  = 'D:/Training/03 Projects/03) ML Projects/Practice/AirlineFare_EndToEnd/'
-    file =  'Data/01_RawData/Airline.csv'
+    folder  = 'D:/Training/03 Projects/03) ML Projects/Practice/AirlineFare_EndToEnd/Data/01_RawData/Airline.csv'
+    # file =  ''
 
     # Create an instance of DataCleaningClass
     data_cleaning_obj = DataCleaningClass()
-    df = data_cleaning_obj.read_csv_as_dataframe(folder,file)
+    df = data_cleaning_obj.read_csv_as_dataframe(folder)
     # Apply the cleaning functions
     # df = data_cleaning_obj.clean_total_stops(df)
     # df = data_cleaning_obj.clean_airline_column(df)
