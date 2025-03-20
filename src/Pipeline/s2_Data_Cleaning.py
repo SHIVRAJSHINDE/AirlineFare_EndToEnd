@@ -5,14 +5,31 @@ from src.Utils.exception import CustomException
 
 
 class DataCleaningClass:
-    def read_csv(self, raw_file_path: str) -> pd.DataFrame:
+    '''def read_csv(self, raw_file_path: str) -> pd.DataFrame:
         try:
             print(raw_file_path)
             """Reads a CSV file and returns a DataFrame."""
             df = pd.read_csv(raw_file_path)
             return df
         except Exception as e:
-            print(CustomException(e,sys))
+            print(CustomException(e,sys))'''
+
+    def read_csv_as_dataframe(folder: str, file: str) -> pd.DataFrame:
+
+        # Combine the folder and file path into a full path
+        full_path = os.path.join(folder, file)
+        
+        # Read the CSV file into a DataFrame
+        try:
+            df = pd.read_csv(full_path)
+            return df
+        except FileNotFoundError:
+            print(f"File not found: {full_path}")
+            return None
+        except Exception as e:
+            print(f"Error reading the file: {e}")
+            return None
+
 
 
     def clean_total_stops(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -153,13 +170,15 @@ class DataCleaningClass:
 
 # Example usage:
 if __name__ == "__main__":
-    raw_file_path = "Data/01_RawData/Airline.csv"
+    '''raw_file_path = "Data/01_RawData/Airline.csv"
     directory = "Data/02_CleanedData/"
-    filename = "CleanedData.csv"
+    filename = "CleanedData.csv"'''
+    folder  = 'D:/Training/03 Projects/03) ML Projects/Practice/AirlineFare_EndToEnd/'
+    file =  'Data/01_RawData/Airline.csv'
 
     # Create an instance of DataCleaningClass
     data_cleaning_obj = DataCleaningClass()
-    df = data_cleaning_obj.read_csv(raw_file_path)
+    df = data_cleaning_obj.read_csv_as_dataframe(folder,file)
     # Apply the cleaning functions
     # df = data_cleaning_obj.clean_total_stops(df)
     # df = data_cleaning_obj.clean_airline_column(df)
