@@ -35,7 +35,11 @@ class DataIngestionClass:
 
 # This block will only execute if this script is run directly
 if __name__ == "__main__":
-    source_path = r"D:/Training/04DataSets/01_AirlineData/Airline.csv"
+    import os
+    source_path = os.path.join("D:", "\\Training", "04DataSets", "01_AirlineData", "Airline.csv")
+
+    print(source_path)
+    # source_path = r"D:/Training/04DataSets/01_AirlineData/Airline.csv"
     # source_path = "D:\\DataSets\\01_AirlineData\\Airline.csv"  # Use Pathlib to build the path
     # df = pd.read_csv(r"C:/Users/SHIVRAJ SHINDE/JupiterWorking/XL_ML/Z_DataSets/01_AirlineData/Airline.csv")
     # print(df)
@@ -44,4 +48,4 @@ if __name__ == "__main__":
     filename = "Airline.csv"
 
     df = DataIngestionClass.read_csv(source_path)  # Read the CSV file
-    DataIngestionClass.save_file(df, directory, filename)  # Save the DataFrame to the destination
+    # DataIngestionClass.save_file(df, directory, filename)  # Save the DataFrame to the destination
