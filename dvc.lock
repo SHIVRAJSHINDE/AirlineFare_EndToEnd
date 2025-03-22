@@ -28,21 +28,24 @@ stages:
       md5: 1f564a134f850c9169c5f38677e39a47
       size: 688161
   RemoveOutliers:
-    cmd: python src\Pipeline\s3_RemoveOutliers.py
+    cmd: python src/Pipeline/s3_RemoveOutliers.py
     deps:
-    - path: Data\02_CleanedData\CleanedData.csv
-      md5: 9a4db24a3bb00ea65fbf9f702a55b6c5
+    - path: Data/02_CleanedData/CleanedData.csv
+      hash: md5
+      md5: 1f564a134f850c9169c5f38677e39a47
       size: 688161
     - path: constants.yaml
       md5: e9b0a094d3cce25d863920a2b3bf0856
       size: 469
-    - path: src\Pipeline\s3_RemoveOutliers.py
-      md5: bafb9bdbd71012ee06bb7a4a446fb4fe
-      size: 1717
+    - path: src/Pipeline/s3_RemoveOutliers.py
+      hash: md5
+      md5: 5be16808bfe5cf5967ffc6975d4850eb
+      size: 3047
     outs:
-    - path: Data\03_noOutlierData\noOutlierDataFile.csv
-      md5: 32dcc984a31b3384cbb56ada22471e0a
-      size: 647939
+    - path: Data/03_noOutlierData/noOutlierDataFile.csv
+      hash: md5
+      md5: 1f564a134f850c9169c5f38677e39a47
+      size: 688161
   Encoder_N_Scaler:
     cmd: python src\Pipeline\s4_Encoding.py
     deps:

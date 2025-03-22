@@ -15,4 +15,11 @@ stages:
     outs:
     - Data/02_CleanedData/CleanedData.csv
 
-
+  RemoveOutliers:
+    cmd: python src/Pipeline/s3_RemoveOutliers.py
+    deps:
+    - Data/02_CleanedData/CleanedData.csv
+    - constants.yaml
+    - src/Pipeline/s3_RemoveOutliers.py
+    outs:
+    - Data/03_noOutlierData/noOutlierDataFile.csv
