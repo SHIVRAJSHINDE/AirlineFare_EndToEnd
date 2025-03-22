@@ -7,12 +7,5 @@ stages:
     outs:
     - Data/01_RawData/Airline.csv
   
-  DataCleaning:
-    cmd: python src/Pipeline/s2_Data_Cleaning.py
-    deps:
-    - Data/01_RawData/Airline.csv
-    - src/Pipeline/s2_Data_Cleaning.py
-    outs:
-    - Data/02_CleanedData/CleanedData.csv
 
   
