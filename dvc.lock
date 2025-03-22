@@ -47,37 +47,37 @@ stages:
       md5: 1f564a134f850c9169c5f38677e39a47
       size: 688161
   Encoder_N_Scaler:
-    cmd: python src\Pipeline\s4_Encoding.py
+    cmd: python src/Pipeline/s4_Encoding.py
     deps:
-    - path: Data\03_noOutlierData\noOutlierDataFile.csv
+    - path: Data/03_noOutlierData/noOutlierDataFile.csv
       hash: md5
-      md5: 82c381d5fbdafec2626a00ed8902f520
-      size: 647939
+      md5: 1f564a134f850c9169c5f38677e39a47
+      size: 688161
     - path: constants.yaml
       hash: md5
       md5: 487c2f98bb5d17c890ebd279304aa028
       size: 469
-    - path: src\Pipeline\s4_Encoding.py
+    - path: src/Pipeline/s4_Encoding.py
       hash: md5
-      md5: d95542ab3a708bb7c93261c4261c8c9a
-      size: 3200
+      md5: fa50c7cc58b71fe6cae9d409cae1579b
+      size: 4593
     outs:
-    - path: Data\04_encoded_Data\X_test.csv
+    - path: Data/04_encoded_Data/X_test.csv
       hash: md5
-      md5: 36fbaa638123a13ee41ee2ea322fecd5
-      size: 586257
-    - path: Data\04_encoded_Data\X_train.csv
+      md5: dccae7c3438c5eb074549db4f181e449
+      size: 604783
+    - path: Data/04_encoded_Data/X_train.csv
       hash: md5
-      md5: 467e3119fb6132272a60af11b2ed876e
-      size: 1365275
-    - path: Data\04_encoded_Data\y_test.csv
+      md5: 80f7fd5fc92e40c520494f026ed2c11c
+      size: 1410433
+    - path: Data/04_encoded_Data/y_test.csv
       hash: md5
-      md5: 9263126412b8254115a2da4109140026
-      size: 19354
-    - path: Data\04_encoded_Data\y_train.csv
+      md5: aebfe7a57445ae93a3e8a21728b7d600
+      size: 20570
+    - path: Data/04_encoded_Data/y_train.csv
       hash: md5
-      md5: 4a073a290d4092a9d27c870d69bedbf8
-      size: 45052
+      md5: 3ca5ad941b0124e34be9a63464892fb0
+      size: 47905
   Model_Training:
     cmd: python src\Pipeline\s5_Model_Training.py
     deps:

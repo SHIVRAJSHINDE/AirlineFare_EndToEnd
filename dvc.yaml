@@ -23,3 +23,15 @@ stages:
     - src/Pipeline/s3_RemoveOutliers.py
     outs:
     - Data/03_noOutlierData/noOutlierDataFile.csv
+
+  Encoder_N_Scaler:
+    cmd: python src/Pipeline/s4_Encoding.py
+    deps:
+    - Data/03_noOutlierData/noOutlierDataFile.csv
+    - src/Pipeline/s4_Encoding.py
+    - constants.yaml
+    outs:
+    - Data/04_encoded_Data/X_test.csv
+    - Data/04_encoded_Data/X_train.csv
+    - Data/04_encoded_Data/y_test.csv
+    - Data/04_encoded_Data/y_train.csv

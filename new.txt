@@ -11,40 +11,30 @@
 
 
 
-  Encoder_N_Scaler:
-    cmd: python src\Pipeline\s4_Encoding.py
-    deps:
-    - Data\03_noOutlierData\noOutlierDataFile.csv
-    - src\Pipeline\s4_Encoding.py
-    - constants.yaml
-    outs:
-    - Data\04_encoded_Data\X_test.csv
-    - Data\04_encoded_Data\X_train.csv
-    - Data\04_encoded_Data\y_test.csv
-    - Data\04_encoded_Data\y_train.csv
+
   
   Model_Training:
-    cmd: python src\Pipeline\s5_Model_Training.py
+    cmd: python src/Pipeline/s5_Model_Training.py
     deps:
-    - src\Pipeline\s5_Model_Training.py
-    - Data\04_encoded_Data\X_test.csv
-    - Data\04_encoded_Data\X_train.csv
-    - Data\04_encoded_Data\y_train.csv
+    - src/Pipeline/s5_Model_Training.py
+    - Data/04_encoded_Data/X_test.csv
+    - Data/04_encoded_Data/X_train.csv
+    - Data/04_encoded_Data/y_train.csv
     - modelsParams.yaml
     - constants.yaml
     outs:
     - reports/experiment_info.json
 
   Register_Model:
-    cmd: python src\Pipeline\s6_register_model.py
+    cmd: python src/Pipeline/s6_register_model.py
     deps:
-    - reports\experiment_info.json
-    - src\Pipeline\s6_register_model.py
+    - reports/experiment_info.json
+    - src/Pipeline/s6_register_model.py
 
   stage_Transition_Model:
-    cmd: python src\Pipeline\s7_stage_Transition.py
+    cmd: python src/Pipeline/s7_stage_Transition.py
     deps:
-    - reports\experiment_info.json
-    - src\Pipeline\s7_stage_Transition.py
+    - reports/experiment_info.json
+    - src/Pipeline/s7_stage_Transition.py
 
   
