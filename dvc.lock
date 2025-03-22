@@ -19,8 +19,8 @@ stages:
       size: 1089598
     - path: src/Pipeline/s2_Data_Cleaning.py
       hash: md5
-      md5: 1e0ea1b4297eda523da20a47cfd0d4ae
-      size: 7996
+      md5: 61e8e3c2991b571b7bd5c2e8e61bb245
+      size: 8012
   RemoveOutliers:
     cmd: python src\Pipeline\s3_RemoveOutliers.py
     deps:
