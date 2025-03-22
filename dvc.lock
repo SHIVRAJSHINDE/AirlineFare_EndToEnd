@@ -5,8 +5,8 @@ stages:
     deps:
     - path: src/Pipeline/s1_dataIngestion.py
       hash: md5
-      md5: dbc901f4bd7587216175f5660fda8d3c
-      size: 2003
+      md5: 9ef611e2999f036312bf51de8fb6ca8c
+      size: 2163
     outs:
     - path: Data/01_RawData/Airline.csv
       md5: 891afd8932c19ef4d8723b53ff7784dc
@@ -20,8 +20,13 @@ stages:
       size: 1089598
     - path: src/Pipeline/s2_Data_Cleaning.py
       hash: md5
-      md5: 61e8e3c2991b571b7bd5c2e8e61bb245
-      size: 8012
+      md5: 0aee46ebf628597696f6d0fbda9bb1ee
+      size: 7919
+    outs:
+    - path: Data/02_CleanedData/CleanedData.csv
+      hash: md5
+      md5: 1f564a134f850c9169c5f38677e39a47
+      size: 688161
   RemoveOutliers:
     cmd: python src\Pipeline\s3_RemoveOutliers.py
     deps:

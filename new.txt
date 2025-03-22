@@ -6,24 +6,6 @@
           restore-keys: |
             ${{ runner.os }}-pip-
 
-  DataCleaning:
-    cmd: python src/Pipeline/s2_Data_Cleaning.py
-    deps:
-    - Data/01_RawData/Airline.csv
-    - src/Pipeline/s2_Data_Cleaning.py
-    outs:
-    - Data/02_CleanedData/CleanedData.csv
-
-
-  RemoveOutliers:
-    cmd: python src\Pipeline\s3_RemoveOutliers.py
-    deps:
-    - Data\02_CleanedData\CleanedData.csv
-    - constants.yaml
-    - src\Pipeline\s3_RemoveOutliers.py
-    outs:
-    - Data\03_noOutlierData\noOutlierDataFile.csv
-  
   Encoder_N_Scaler:
     cmd: python src\Pipeline\s4_Encoding.py
     deps:
@@ -59,3 +41,5 @@
     deps:
     - reports\experiment_info.json
     - src\Pipeline\s7_stage_Transition.py
+
+  

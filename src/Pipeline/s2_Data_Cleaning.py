@@ -14,23 +14,25 @@ class DataCleaningClass:
         except Exception as e:
             print(CustomException(e,sys))'''
 
-    def read_csv_as_dataframe(self,folder: str) -> pd.DataFrame:
+    def read_csv_as_dataframe(self,raw_file_dir,raw_file) -> pd.DataFrame:
 
         # Combine the folder and file path into a full path
         # full_path = os.path.join(folder, file)
-        full_path = folder
-        print(full_path)
+        
+        file_path = os.path.join(raw_file_dir,raw_file)
+
+        print(file_path)
         # Read the CSV file into a DataFrame
         try:
-            df = pd.read_csv(full_path)
-            print(df)
+            df = pd.read_csv(file_path)
+            
             return df
         
-        except FileNotFoundError:
-            print(f"File not found: {full_path}")
+        except Exception as e:
+            print(CustomException(e,sys))
             return None
         except Exception as e:
-            print(f"Error reading the file: {e}")
+            print(CustomException(e,sys))
             return None
 
 
@@ -173,22 +175,22 @@ class DataCleaningClass:
 
 # Example usage:
 if __name__ == "__main__":
-    '''raw_file_path = "Data/01_RawData/Airline.csv"
-    directory = "Data/02_CleanedData/"
-    filename = "CleanedData.csv"'''
-    folder  = 'D:/Training/03 Projects/03) ML Projects/Practice/AirlineFare_EndToEnd/Data/01_RawData/Airline.csv'
-    # file =  ''
+    raw_file_dir = "./Data/01_RawData/"
+    raw_file = "Airline.csv"
+
+    directory = "./Data/02_CleanedData/"
+    filename = "CleanedData.csv"
 
     # Create an instance of DataCleaningClass
     data_cleaning_obj = DataCleaningClass()
-    df = data_cleaning_obj.read_csv_as_dataframe(folder)
+    df = data_cleaning_obj.read_csv_as_dataframe(raw_file_dir,raw_file)
     # Apply the cleaning functions
-    # df = data_cleaning_obj.clean_total_stops(df)
-    # df = data_cleaning_obj.clean_airline_column(df)
-    # df = data_cleaning_obj.clean_destination_column(df)
-    # df = data_cleaning_obj.create_duration_column(df)
-    # df = data_cleaning_obj.process_date_time_columns(df)
-    # df = data_cleaning_obj.drop_unnecessary_columns(df)
-    # df = data_cleaning_obj.reorder_columns(df)
+    df = data_cleaning_obj.clean_total_stops(df)
+    df = data_cleaning_obj.clean_airline_column(df)
+    df = data_cleaning_obj.clean_destination_column(df)
+    df = data_cleaning_obj.create_duration_column(df)
+    df = data_cleaning_obj.process_date_time_columns(df)
+    df = data_cleaning_obj.drop_unnecessary_columns(df)
+    df = data_cleaning_obj.reorder_columns(df)
         # Save the cleaned data
-    # data_cleaning_obj.save_file(df,directory,filename)
+    data_cleaning_obj.save_file(df,directory,filename)

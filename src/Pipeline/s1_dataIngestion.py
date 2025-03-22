@@ -11,7 +11,7 @@ class DataIngestionClass:
             file_path = os.path.join(OriginalDir,OriginalFile)
             print(file_path)
             df = pd.read_csv(file_path)
-            print(df)
+            
             return df
         except FileNotFoundError as e:
             print(f"Error: {e}")
@@ -32,8 +32,11 @@ class DataIngestionClass:
         
         # Save the DataFrame to the file
         df.to_csv(file_path, index=False)  # index=False to avoid writing row indices
+        print(df)
+        print("----------------------------------------------------")
         print(f"File has been saved to {file_path}")
-
+        print("----------------------------------------------------")
+        
 # This block will only execute if this script is run directly
 if __name__ == "__main__":
     import os
