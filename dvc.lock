@@ -5,8 +5,8 @@ stages:
     deps:
     - path: src/Pipeline/s1_dataIngestion.py
       hash: md5
-      md5: 18648b0a55f263e45b951bc69c050e9b
-      size: 1766
+      md5: 78c459697869316230a72f1e4d6b5c65
+      size: 1802
     outs:
     - path: Data/01_RawData/Airline.csv
       md5: 891afd8932c19ef4d8723b53ff7784dc

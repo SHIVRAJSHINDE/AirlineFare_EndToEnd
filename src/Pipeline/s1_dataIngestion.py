@@ -25,7 +25,9 @@ class DataIngestionClass:
             print(f"Directory '{directory}' already exists.")
 
         # Construct the file path
+        
         file_path = os.path.join(directory, filename)
+        print(file_path)
         
         # Save the DataFrame to the file
         df.to_csv(file_path, index=False)  # index=False to avoid writing row indices
