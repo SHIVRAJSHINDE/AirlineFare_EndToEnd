@@ -27,15 +27,6 @@ jobs:
         run: | 
           pip install -r requirements.txt
 
-      - name: Debug Repository Structure
-        run: |
-          ls -R
-
-      - name: Debug Working Directory
-        run: |
-          echo "Current Working Directory: $PWD"
-
-
       - name: run DVC Pipeline
         run: | 
           dvc repro
