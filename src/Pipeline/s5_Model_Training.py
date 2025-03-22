@@ -15,31 +15,34 @@ import dagshub
 
 class ModelTrainerClass:
 
-    def __init__(self, X_train_path, y_train_path, params_path):
+    def __init__(self):
         """Initialize the trainer  with paths and load necessary data."""
-        self.X_train_path = X_train_path
-        self.y_train_path = y_train_path
-        self.params_path = params_path
-
-    def load_X_train(self):
+        # self.X_train_path = X_train_path
+        # self.y_train_path = y_train_path
+        # self.params_path = params_path
+        pass
+    
+    def load_X_train(self,X_train_Dir,X_train_File):
         """Load X_train from the provided file path."""
-        X_train = pd.read_csv(self.X_train_path)
-        self.X_train = np.array(X_train)
-        return self.X_train
+        file_path = os.path.join(X_train_Dir,X_train_File)
+        X_train = pd.read_csv(file_path)
+        X_train = np.array(X_train)
+        return X_train
 
-    def load_y_train(self):
+    def load_y_train(self,y_train_path,y_train_File):
         """Load y_train from the provided file path."""
-        y_train = pd.read_csv(self.y_train_path)
-        self.y_train = np.array(y_train).ravel()  # Ensure it's a flat array
-        return self.y_train
+        file_path = os.path.join(y_train_path,y_train_File)
+        y_train = pd.read_csv(file_path)
+        y_train = np.array(y_train).ravel()  # Ensure it's a flat array
+        return y_train
 
-    def load_params(self):
+    def load_params(self,params_path):
         """Load parameters from the YAML file."""
-        with open(self.params_path, "r") as file:
+        file_path = os.path.join(params_path)
+        with open(file_path, "r") as file:
             self.modelWithParams = yaml.safe_load(file)
             self.modelWithParams = self.modelWithParams['model']
-            
-
+ 
         return self.modelWithParams
     
     def get_Model_class(self,model):
@@ -47,16 +50,16 @@ class ModelTrainerClass:
         model = model_class()  # Instantiate the model
         return model
 
-    def train_model(self, model, param_grid):
+    def train_model(self, model, param_grid,X_train,y_train):
         """Train the model"""
         random_search = RandomizedSearchCV(estimator=model, param_distributions=param_grid, cv=5)
-        random_search.fit(self.X_train, self.y_train)
+        random_search.fit(X_train, y_train)
 
         best_model = random_search.best_estimator_
         best_params = random_search.best_params_
 
-        best_model.fit(self.X_train, self.y_train)
-        predicted_y = best_model.predict(self.X_train)
+        best_model.fit(X_train, y_train)
+        predicted_y = best_model.predict(X_train)
 
         return best_model, best_params, predicted_y
 
@@ -137,20 +140,21 @@ class MLflowLoggerClass:
 # Main script execution
 if __name__ == "__main__":
 
-    X_train_path = "Data\\04_encoded_Data\\X_train.csv"
-    y_train_path = "Data\\04_encoded_Data\\y_train.csv"
-    params_path = "modelsParams.yaml"
+    X_train_Dir = "./Data/04_encoded_Data/"
+    X_train_File = "X_train.csv"
 
+    y_train_path = "./Data/04_encoded_Data/"
+    y_train_File = "y_train.csv"
 
-
+    params_path = "./modelsParams.yaml"
 
     # Initialize the ModelTrainerObj
-    ModelTrainerObj = ModelTrainerClass(X_train_path, y_train_path, params_path)
+    ModelTrainerObj = ModelTrainerClass()
 
     # Load data and params
-    X_train = ModelTrainerObj.load_X_train()
-    y_train = ModelTrainerObj.load_y_train()
-    modelWithParams = ModelTrainerObj.load_params()
+    X_train = ModelTrainerObj.load_X_train(X_train_Dir,X_train_File)
+    y_train = ModelTrainerObj.load_y_train(y_train_path,y_train_File)
+    modelWithParams = ModelTrainerObj.load_params(params_path)
     print("----------------------------------------------------")
     #print(modelParams['model'])
     for value in modelWithParams.values():
@@ -162,7 +166,7 @@ if __name__ == "__main__":
         print(params_Grid)
 
         # Train the model
-        best_model, best_params, predicted_y = ModelTrainerObj.train_model(model, params_Grid)
+        best_model, best_params, predicted_y = ModelTrainerObj.train_model(model, params_Grid,X_train,y_train)
 
         # Calculate metrics
         mse, mae, rmse, r2, aR2 = ModelTrainerObj.calculate_metrics(X_train, y_train, predicted_y)
