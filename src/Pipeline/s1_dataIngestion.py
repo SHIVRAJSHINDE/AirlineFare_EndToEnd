@@ -8,6 +8,7 @@ class DataIngestionClass:
 
         # Read the CSV file and return the DataFrame
         try:
+            print(source_path)
             df = pd.read_csv(source_path)
             print(df)
             return df
