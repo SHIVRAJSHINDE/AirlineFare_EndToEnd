@@ -19,17 +19,7 @@
 
 
   
-  Model_Training:
-    cmd: python src/Pipeline/s5_Model_Training.py
-    deps:
-    - src/Pipeline/s5_Model_Training.py
-    - Data/04_encoded_Data/X_test.csv
-    - Data/04_encoded_Data/X_train.csv
-    - Data/04_encoded_Data/y_train.csv
-    - modelsParams.yaml
-    - constants.yaml
-    outs:
-    - reports/experiment_info.json
+
 
   Register_Model:
     cmd: python src/Pipeline/s6_register_model.py
