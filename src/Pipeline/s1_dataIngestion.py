@@ -3,13 +3,14 @@ import pandas as pd
 from pathlib import Path
 
 class DataIngestionClass:
-    def read_csv(source_path:str):
+    def read_csv(OriginalDir,OriginalFile):
         # source_path = r"D:/Data/01_AirlineData/Airline.csv"  # Raw string
 
         # Read the CSV file and return the DataFrame
         try:
-            print(source_path)
-            df = pd.read_csv(source_path)
+            file_path = os.path.join(OriginalDir,OriginalFile)
+            print(file_path)
+            df = pd.read_csv(file_path)
             print(df)
             return df
         except FileNotFoundError as e:
@@ -39,7 +40,8 @@ if __name__ == "__main__":
     # source_path = os.path.join("D:", "\\Training", "04DataSets", "01_AirlineData", "Airline.csv")
 
     # print(source_path)
-    source_path = "D://Training/04DataSets/01_AirlineData/Airline.csv"
+    OriginalDir = "./OriginalFolder/"
+    OriginalFile = "Airline.csv"
     # source_path = "D:\\DataSets\\01_AirlineData\\Airline.csv"  # Use Pathlib to build the path
     # df = pd.read_csv(r"C:/Users/SHIVRAJ SHINDE/JupiterWorking/XL_ML/Z_DataSets/01_AirlineData/Airline.csv")
     # print(df)
@@ -47,5 +49,5 @@ if __name__ == "__main__":
     directory = "./Data/01_RawData/"
     filename = "Airline.csv"
 
-    df = DataIngestionClass.read_csv(source_path)  # Read the CSV file
+    df = DataIngestionClass.read_csv(OriginalDir,OriginalFile)  # Read the CSV file
     DataIngestionClass.save_file(df, directory, filename)  # Save the DataFrame to the destination
