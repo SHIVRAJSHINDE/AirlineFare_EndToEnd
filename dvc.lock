@@ -20,8 +20,8 @@ stages:
       size: 1089598
     - path: src/Pipeline/s2_Data_Cleaning.py
       hash: md5
-      md5: 0aee46ebf628597696f6d0fbda9bb1ee
-      size: 7919
+      md5: ebcf5f7c71a9f5cb6dc143ccb8f7125c
+      size: 8097
     outs:
     - path: Data/02_CleanedData/CleanedData.csv
       hash: md5

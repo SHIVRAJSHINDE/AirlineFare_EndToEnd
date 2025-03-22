@@ -162,6 +162,10 @@ class DataCleaningClass:
             if not os.path.exists(directory):
                 os.makedirs(directory)
                 print(f"Directory '{directory}' was created.")
+                file_path = os.path.join(directory, filename)
+                df.to_csv(file_path, index=False)
+                print(f"File has been saved to {file_path}")
+
             else:
                 print(f"Directory '{directory}' already exists.")
 
