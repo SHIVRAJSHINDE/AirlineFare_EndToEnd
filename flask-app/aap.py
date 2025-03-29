@@ -11,12 +11,12 @@ import dagshub
 
 app = Flask(__name__)
 
-mlflow.set_tracking_uri("https://dagshub.com/SHIVRAJSHINDE/AirlineFare_EndToEnd.mlflow")
-dagshub.init(repo_owner='SHIVRAJSHINDE', repo_name='AirlineFare_EndToEnd', mlflow=True)
+# mlflow.set_tracking_uri("https://dagshub.com/SHIVRAJSHINDE/AirlineFare_EndToEnd.mlflow")
+# dagshub.init(repo_owner='SHIVRAJSHINDE', repo_name='AirlineFare_EndToEnd', mlflow=True)
 
 
-# tracking_uri = "http://localhost:5000"
-# mlflow.set_tracking_uri(tracking_uri)
+tracking_uri = "http://localhost:5000"
+mlflow.set_tracking_uri(tracking_uri)
 
 def load_model_info() -> dict:
     """Load the model info from a JSON file."""
@@ -79,4 +79,4 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=8080)

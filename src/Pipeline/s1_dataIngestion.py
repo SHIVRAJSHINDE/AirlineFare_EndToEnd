@@ -3,16 +3,19 @@ import pandas as pd
 from pathlib import Path
 
 class DataIngestionClass:
+
     def read_csv(OriginalDir,OriginalFile):
         # source_path = r"D:/Data/01_AirlineData/Airline.csv"  # Raw string
 
         # Read the CSV file and return the DataFrame
         try:
+
             file_path = os.path.join(OriginalDir,OriginalFile)
             print(file_path)
             df = pd.read_csv(file_path)
             
             return df
+
         except FileNotFoundError as e:
             print(f"Error: {e}")
             return None

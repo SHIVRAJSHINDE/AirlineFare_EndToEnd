@@ -93,8 +93,8 @@ class MLflowLoggerClass:
         mlflow.set_tracking_uri("https://dagshub.com/SHIVRAJSHINDE/AirlineFare_EndToEnd.mlflow")
         dagshub.init(repo_owner='SHIVRAJSHINDE', repo_name='AirlineFare_EndToEnd', mlflow=True)
 
-        # self.tracking_uri = "http://localhost:5000"
-        # mlflow.set_tracking_uri(self.tracking_uri)
+        self.tracking_uri = "http://localhost:5000"
+        mlflow.set_tracking_uri(self.tracking_uri)
 
     def save_model_info(self, run_id: str, model_path: str, file_path: str) -> None:
         """Save the model run ID and path to a JSON file, ensuring the directory exists."""

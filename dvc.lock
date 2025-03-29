@@ -103,10 +103,32 @@ stages:
       size: 379
     - path: src/Pipeline/s5_Model_Training.py
       hash: md5
-      md5: a782a4a56237ff14893111efffcbd7cc
-      size: 6684
+      md5: 0bc77b810c86271986edf6cb0cd66d0b
+      size: 6680
     outs:
     - path: reports/experiment_info.json
       hash: md5
-      md5: 2468d3667e39e84b5006b0f333918dcb
+      md5: 1678037525992b83d15a332083c6717a
       size: 82
+  Register_Model:
+    cmd: python src/Pipeline/s6_register_model.py
+    deps:
+    - path: reports/experiment_info.json
+      hash: md5
+      md5: 1678037525992b83d15a332083c6717a
+      size: 82
+    - path: src/Pipeline/s6_register_model.py
+      hash: md5
+      md5: a8e95307c5c7ef95c15ed1083f4ae4fe
+      size: 2924
+  stage_Transition_Model:
+    cmd: python src/Pipeline/s7_stage_Transition.py
+    deps:
+    - path: reports/experiment_info.json
+      hash: md5
+      md5: 1678037525992b83d15a332083c6717a
+      size: 82
+    - path: src/Pipeline/s7_stage_Transition.py
+      hash: md5
+      md5: c94f660c3d058efac93674905238c1b8
+      size: 2479

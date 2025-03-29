@@ -47,3 +47,15 @@ stages:
     - constants.yaml
     outs:
     - reports/experiment_info.json
+
+  Register_Model:
+    cmd: python src/Pipeline/s6_register_model.py
+    deps:
+    - reports/experiment_info.json
+    - src/Pipeline/s6_register_model.py
+
+  stage_Transition_Model:
+    cmd: python src/Pipeline/s7_stage_Transition.py
+    deps:
+    - reports/experiment_info.json
+    - src/Pipeline/s7_stage_Transition.py
