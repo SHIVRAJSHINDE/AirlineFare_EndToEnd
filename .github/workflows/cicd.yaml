@@ -16,4 +16,4 @@ jobs:
           python-version: '3.11.7'
 
       - name: Install dependencies
-        runs: pip install -r requirements.txt
+        run: pip install -r requirements.txt
