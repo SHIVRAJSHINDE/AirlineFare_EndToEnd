@@ -1,13 +1,16 @@
 name: CICD Pipeline
 
-on: push
+on: 
+  push:
+    branches:
+      - main  # Optionally specify the branch that triggers the pipeline.
 
 jobs:
   CICD_Pipeline_Test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ChecOut Code
+      - name: Check out code
         uses: actions/checkout@v3
     
       - name: Set up Python environment
@@ -16,7 +19,14 @@ jobs:
           python-version: '3.11.7'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          pip install dvc mlflow  # Install DVC and MLflow explicitly if not in requirements.txt
 
-      - name: run Pipeline
-        run: dvc repro
+      - name: Run MLflow UI in background
+        run: |
+          nohup mlflow ui &  # Running MLflow UI in the background.
+          sleep 10  # Wait for the server to start.
+
+      - name: Run DVC pipeline
+        run: dvc repro  # Ensure DVC is initialized and the pipeline is configured correctly.
