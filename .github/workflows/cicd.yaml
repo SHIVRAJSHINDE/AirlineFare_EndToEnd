@@ -3,10 +3,10 @@ name: CICD Pipeline
 on: push
 
 jobs:
-    CICD Pipeline Test:
-      runs-on: ubuntu-latest
+  CICD Pipeline Test:
+    runs-on: ubuntu-latest
 
-steps:
-  name: ChecOut Code
-  uses: actions/checkout@v3
+    steps:
+      - name: ChecOut Code
+        uses: actions/checkout@v3
 
