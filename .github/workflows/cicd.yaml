@@ -9,4 +9,10 @@ jobs:
     steps:
       - name: ChecOut Code
         uses: actions/checkout@v3
+    
+      - name: Set up Python environment
+        uses: actions/setup-python@v2
+        with: 
+          python-version: '3.11.7'
+
 
