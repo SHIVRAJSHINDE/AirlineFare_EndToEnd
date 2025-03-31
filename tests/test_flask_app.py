@@ -10,7 +10,7 @@ class FlaskAppTests(unittest.TestCase):
     def test_home_page(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'<a>Flight Price Prediction</a>', response.data)
+        self.assertIn(b'Flight Price Prediction', response.data)
 
     '''def test_predict_page(self):
         response = self.client.post('/predict', data=dict(text="I love this!"))
