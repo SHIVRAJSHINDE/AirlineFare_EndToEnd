@@ -30,3 +30,7 @@ jobs:
 
       - name: Run DVC pipeline
         run: dvc repro  # Ensure DVC is initialized and the pipeline is configured correctly.
+
+      - name: Run model tests
+        run: |
+          python -m unittest tests/test_model.py
