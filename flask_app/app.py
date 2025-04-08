@@ -6,7 +6,7 @@ from flask import Flask, request, render_template
 from flask_cors import cross_origin
 import os
 
-from predictionFile import ReceiveData
+from flask_app.predictionFile import ReceiveData
 import dagshub
 
 app = Flask(__name__)
