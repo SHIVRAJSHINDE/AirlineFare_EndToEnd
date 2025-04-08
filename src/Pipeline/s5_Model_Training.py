@@ -89,11 +89,18 @@ class MLflowLoggerClass:
 
     def __init__(self):
         """Initialize MLflowLogger with the tracking URI."""
-        
+        dagshub_token = os.getenv("DAGSHUB_PAT")
+        if not dagshub_token:
+            raise EnvironmentError("DAGSHUB_PAT environment variable is not set")
+
+        os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
+        os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
+
+        mlflow.set_tracking_uri("https://dagshub.com/SHIVRAJSHINDE/AirlineFare_EndToEnd.mlflow")        
 
 
-        mlflow.set_tracking_uri("https://dagshub.com/SHIVRAJSHINDE/AirlineFare_EndToEnd.mlflow")
-        dagshub.init(repo_owner='SHIVRAJSHINDE', repo_name='AirlineFare_EndToEnd', mlflow=True)
+        # mlflow.set_tracking_uri("https://dagshub.com/SHIVRAJSHINDE/AirlineFare_EndToEnd.mlflow")
+        # dagshub.init(repo_owner='SHIVRAJSHINDE', repo_name='AirlineFare_EndToEnd', mlflow=True)
 
         # self.tracking_uri = "http://localhost:5000"
         # mlflow.set_tracking_uri(self.tracking_uri)
