@@ -6,17 +6,24 @@ from flask import Flask, request, render_template
 from flask_cors import cross_origin
 import os
 
-from src.Prediction.predictionFile import ReceiveData
+from Prediction.predictionFile import ReceiveData
 import dagshub
 
 app = Flask(__name__)
 
-# mlflow.set_tracking_uri("https://dagshub.com/SHIVRAJSHINDE/AirlineFare_EndToEnd.mlflow")
+dagshub_token = os.getenv("DAGSHUB_PAT")
+if not dagshub_token:
+    raise EnvironmentError("DAGSHUB_PAT environment variable is not set")
+
+os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
+os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
+
+mlflow.set_tracking_uri("https://dagshub.com/SHIVRAJSHINDE/AirlineFare_EndToEnd.mlflow")
+
 # dagshub.init(repo_owner='SHIVRAJSHINDE', repo_name='AirlineFare_EndToEnd', mlflow=True)
-
-
-tracking_uri = "http://localhost:5000"
-mlflow.set_tracking_uri(tracking_uri)
+# os.environ['DAGSHUB_PAT'] = '6d430bde13e3d953e86bec39074f2fccd2b8595a'
+# tracking_uri = "http://localhost:5000"
+# mlflow.set_tracking_uri(tracking_uri)
 
 def load_model_info() -> dict:
     """Load the model info from a JSON file."""
@@ -33,7 +40,7 @@ model_uri = f"runs:/{model_info['run_id']}/{ModelName}"
 # model_uri = 'runs:/b86d75382ed74105b6546b9c899fdc44/Lasso_model'
 
 try:
-    # Load model as a PyFuncModel.
+    print(model_uri)
     model = mlflow.pyfunc.load_model(model_uri)
 
     print(model)
@@ -79,4 +86,5 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8080)
+    #app.run(debug=True, host="0.0.0.0", port=8080)
+    app.run(debug=True, host="0.0.0.0")
